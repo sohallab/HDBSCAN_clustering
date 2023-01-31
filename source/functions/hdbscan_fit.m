@@ -83,8 +83,10 @@ function model = hdbscan_fit( X,varargin )
 
     %% CREATE CONENCTED TREE
     % (a) compute the core distances & mutual reachability for each X(i)    
-    [dCore,D] = compute_core_distances( X,minpts );
-    D = mutual_reachability( D,dCore );
+    [dCore,D] = compute_core_distances( X,minpts ); %it could be that min points affects the size of the core distance used 
+    assert(sum(ismember(size(dCore), 1)) == 1, "Core distance is not vector shaped (no dim = 1)")
+
+    D = mutual_reachability( D,dCore ); %requires 1x N vector input as dcore
     
     % (b) create the minimum spanning tree and add self loops
     [nodes(:,1),nodes(:,2),weights] = mst_prim( D ); clear mr

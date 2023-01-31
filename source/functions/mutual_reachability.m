@@ -15,6 +15,10 @@ function D = mutual_reachability( D,coreDist )
     % written by Jordan Sorokin, 10/7/2017
 
     % find where core(i) or core(j) > D(i,j)
+    
+    fprintf(strcat("shape of coredistance is ", num2str(size(coreDist))))% debug step 
+    assert(sum(ismember(size(coreDist), 1)) == 1, "Core distance is not vector shaped (no dim = 1)") %debug 
+    
     maxCore = bsxfun( @max,coreDist,coreDist' );
     idx = maxCore > D; 
     D(idx) = maxCore(idx); % ~idx locations left as D

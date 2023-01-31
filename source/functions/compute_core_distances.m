@@ -34,7 +34,7 @@ function [dCore,D,kdtree] = compute_core_distances( X,k )
     
     %if (m >= 10) || (n < 100)
         kdtree = nan;
-        if n > 20e3
+        if n > 20e3 %this is potentially true with RS data is involved 
             [~,dCore,D] = compute_nearest_neighbors( X,X,k-1 ); % slow but memory conservative
         else
             D = compute_pairwise_dist( X );
